@@ -19,21 +19,17 @@ const { email, instagram, location } = Astro.props;
 
   <div class="px-site mt-8 md:mt-16 flex justify-center">
     <div class="flex flex-col items-center gap-8 text-center" data-reveal>
-      <p class="text-xs font-medium uppercase tracking-widest text-ink" style="letter-spacing: 0.15em;">
-        Get in touch
-      </p>
+      <p class="eyebrow">Get in touch</p>
 
-      <div class="flex flex-col gap-4">
-        <a
-          href={`mailto:${email}`}
-          class="text-ink no-underline hover:opacity-60 transition-opacity duration-200"
-          style="font-family: 'Anton', sans-serif; font-size: clamp(1.25rem, 4vw, 3.5rem); line-height: 1.1; word-break: break-all;"
-        >
-          {email}
-        </a>
-      </div>
+      <a
+        href={`mailto:${email}`}
+        class="text-ink no-underline hover:opacity-60 transition-opacity duration-200"
+        style="font-family: 'Anton', sans-serif; font-size: clamp(1.25rem, 4vw, 3.5rem); line-height: 1.1; word-break: break-all;"
+      >
+        {email}
+      </a>
 
-      <div class="flex gap-10 items-center">
+      <div class="flex gap-10 items-center flex-wrap justify-center">
         <a
           href={`https://instagram.com/${instagram.replace('@', '')}`}
           target="_blank"
@@ -46,6 +42,10 @@ const { email, instagram, location } = Astro.props;
         <span style="color: #E8E8E8;" aria-hidden="true">·</span>
         <p class="text-sm font-medium text-ink m-0">{location}</p>
       </div>
+
+      <p class="text-sm" style="color: #6B6B6B; font-style: italic;">
+        Available for commissions worldwide.
+      </p>
     </div>
   </div>
 </section>

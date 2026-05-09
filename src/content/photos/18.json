@@ -1,6 +1,7 @@
 {
   "src": "../../assets/photos/18.jpg",
-  "alt": "Cinematic portrait 18",
-  "aspectRatio": "3/4",
-  "order": 18
+  "alt": "Personal work 18",
+  "aspectRatio": "4/3",
+  "order": 18,
+  "category": "personal"
 }

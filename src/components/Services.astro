@@ -1,0 +1,100 @@
+---
+const services = [
+  {
+    num: '01',
+    title: 'Media Production',
+    desc: 'Full-scale video and photo production for brands',
+  },
+  {
+    num: '02',
+    title: 'Social Media Management',
+    desc: 'Strategy, content, and consistency for your channels',
+  },
+  {
+    num: '03',
+    title: 'Personalized Photoshoot',
+    desc: 'Tailored portrait and editorial sessions',
+  },
+  {
+    num: '04',
+    title: 'UGC Creation',
+    desc: 'Authentic user-generated style content for campaigns',
+  },
+  {
+    num: '05',
+    title: 'Modeling',
+    desc: 'Editorial, commercial, and creative direction',
+  },
+  {
+    num: '06',
+    title: 'Abilities & Roles',
+    desc: 'Multidisciplinary creative available for collaborations',
+  },
+];
+---
+
+<section
+  id="services"
+  class="py-section px-site"
+  aria-labelledby="services-heading"
+>
+  <!-- Heading -->
+  <h2
+    id="services-heading"
+    style="font-family: 'Anton', sans-serif; font-size: clamp(2rem, 6vw, 4rem); color: #0A0A0A; line-height: 1; letter-spacing: -0.02em;"
+  >
+    PHOZARO OFFERS
+  </h2>
+  <p
+    style="font-family: 'Inter', sans-serif; font-size: 1rem; color: #6B6B6B; font-style: italic; margin-top: 0.5rem; margin-bottom: 3rem;"
+  >
+    It's time to create.
+  </p>
+
+  <!-- Cards grid -->
+  <div
+    style="display: grid; grid-template-columns: 1fr; gap: 1rem;"
+    class="services-grid"
+  >
+    {services.map((s) => (
+      <div
+        class="service-card"
+        data-reveal
+        style="background: white; border: 1px solid #E8E8E8; padding: clamp(1.5rem, 3vw, 2.5rem); transition: border-color 300ms ease;"
+      >
+        <p
+          style="font-family: 'Anton', sans-serif; font-size: 3rem; color: #E8E8E8; line-height: 1; margin: 0;"
+          aria-hidden="true"
+        >
+          {s.num}
+        </p>
+        <p
+          style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 700; color: #0A0A0A; margin-top: 0.5rem;"
+        >
+          {s.title}
+        </p>
+        <p
+          style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #6B6B6B; margin-top: 0.5rem; line-height: 1.7;"
+        >
+          {s.desc}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  @media (min-width: 640px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .service-card:hover {
+    border-color: #0A0A0A;
+  }
+</style>

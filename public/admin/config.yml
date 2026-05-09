@@ -1,0 +1,69 @@
+backend:
+  name: github
+  repo: Mikechamp17/BrunaPortfolio-
+  branch: main
+  base_url: https://phozaro-oauth.netlify.app  # OAuth proxy — see README setup notes
+
+media_folder: src/assets/photos
+public_folder: ../../assets/photos
+
+collections:
+  # ── Photos ──────────────────────────────────────────────
+  - name: photos
+    label: Photos
+    label_singular: Photo
+    folder: src/content/photos
+    format: json
+    extension: json
+    create: true
+    slug: "{{order}}"
+    fields:
+      - { label: Image, name: src, widget: image, media_folder: /src/assets/photos, public_folder: "../../assets/photos" }
+      - { label: Alt text, name: alt, widget: string, hint: "Describe the photo for screen readers" }
+      - label: Aspect Ratio
+        name: aspectRatio
+        widget: select
+        options:
+          - { label: "Portrait (3:4)", value: "3/4" }
+          - { label: "Square (1:1)", value: "1/1" }
+          - { label: "Landscape (4:3)", value: "4/3" }
+          - { label: "Widescreen (16:9)", value: "16/9" }
+      - { label: Order, name: order, widget: number, value_type: int, hint: "Display order (lower = first)" }
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - { label: "Multimedia Marketing", value: "marketing" }
+          - { label: "Personal Work", value: "personal" }
+        default: personal
+      - { label: Caption (optional), name: caption, widget: string, required: false }
+
+  # ── Site settings ────────────────────────────────────────
+  - name: settings
+    label: Site Settings
+    files:
+      - label: Site Info
+        name: site
+        file: src/data/site.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Tagline, name: tagline, widget: string }
+          - { label: Location, name: location, widget: string }
+          - { label: Year Started, name: yearStarted, widget: number, value_type: int }
+          - { label: Email, name: email, widget: string }
+          - { label: Instagram handle, name: instagram, widget: string, hint: "Include the @ symbol" }
+          - { label: Vimeo URL, name: vimeo, widget: string }
+
+  # ── Videos ───────────────────────────────────────────────
+  - name: videos
+    label: Videos
+    label_singular: Video
+    folder: src/content/videos
+    format: json
+    extension: json
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Vimeo ID, name: vimeoId, widget: string, hint: "The number from the Vimeo URL, e.g. 76979871" }
+      - { label: Poster image, name: poster, widget: image, media_folder: /src/assets/video-posters, public_folder: "../../assets/video-posters" }
+      - { label: Order, name: order, widget: number, value_type: int }

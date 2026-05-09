@@ -1,6 +1,7 @@
 {
   "src": "../../assets/photos/14.jpg",
-  "alt": "Cinematic portrait 14",
+  "alt": "Personal work 14",
   "aspectRatio": "3/4",
-  "order": 14
+  "order": 14,
+  "category": "personal"
 }

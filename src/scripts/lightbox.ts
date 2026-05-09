@@ -1,11 +1,13 @@
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 
-const lightbox = new PhotoSwipeLightbox({
-  gallery: '#photo-gallery',
-  children: 'a.photo-item',
-  pswpModule: () => import('photoswipe'),
-  showHideAnimationType: 'fade',
-  bgOpacity: 0.95,
+// Init a lightbox for every photo gallery on the page
+document.querySelectorAll<HTMLElement>('[id^="photo-gallery"]').forEach((gallery) => {
+  const lightbox = new PhotoSwipeLightbox({
+    gallery,
+    children: 'a.photo-item',
+    pswpModule: () => import('photoswipe'),
+    showHideAnimationType: 'fade',
+    bgOpacity: 0.95,
+  });
+  lightbox.init();
 });
-
-lightbox.init();

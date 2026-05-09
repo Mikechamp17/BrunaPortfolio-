@@ -2,48 +2,47 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
 import SectionMarker from '../components/SectionMarker.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
-import VimeoEmbed from '../components/VimeoEmbed.astro';
 import About from '../components/About.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
-import { getCollection } from 'astro:content';
 import site from '../data/site.json';
-
-const videos = (await getCollection('videos')).sort((a, b) => a.data.order - b.data.order);
-const reel = videos[0];
 ---
 
 <Base
   title={`${site.name} — ${site.tagline}`}
-  description={`${site.name} is a ${site.tagline.toLowerCase()} working at the intersection of portraiture, fashion, and cinematic storytelling.`}
+  description="PHOZARO is a Malta-based photographer, filmmaker, and content creator working at the intersection of visual storytelling, brand identity, and digital media."
 >
   <Nav />
 
   <main id="main">
-    <Hero name={site.name} />
+    <Hero name={site.name} tagline={site.tagline} />
 
-    <PhotoGrid />
+    <Services />
 
-    <!-- Videography -->
-    <section id="videography" class="py-section" aria-labelledby="videography-heading">
-      <h2 id="videography-heading" class="sr-only">Videography</h2>
-      <SectionMarker word="VIDEOGRAPHY" />
+    <!-- Portfolio -->
+    <section id="portfolio" class="py-section" aria-labelledby="portfolio-heading">
+      <h2 id="portfolio-heading" class="sr-only">Portfolio</h2>
+      <SectionMarker word="PORTFOLIO" />
 
-      {reel && (
-        <div class="px-site mt-8 md:mt-16" data-reveal>
-          <VimeoEmbed
-            vimeoId={reel.data.vimeoId}
-            title={reel.data.title}
-            poster={reel.data.poster}
-          />
-        </div>
-      )}
+      <!-- Multimedia Marketing -->
+      <div class="px-site mt-8 md:mt-16">
+        <p class="eyebrow">Multimedia Marketing</p>
+        <PhotoGrid category="marketing" />
+        <p class="brands-strip">
+          Gaura Sumer Campaign · Browns Pharmacy · Malta Airport · McDonald's Malta · Balanced Lifestore · Maduma Reels
+        </p>
+      </div>
 
-      <!-- Add videos as Bruna provides them -->
-      <div class="px-site mt-12">
-        <!-- Selected work goes here -->
+      <!-- Personal Work -->
+      <div class="px-site" style="margin-top: clamp(5rem, 10vw, 9rem);">
+        <p class="eyebrow">Personal Work</p>
+        <PhotoGrid category="personal" />
+        <p class="brands-strip">
+          Creative Media Production · Urban · Nature · UGC Creation
+        </p>
       </div>
     </section>
 

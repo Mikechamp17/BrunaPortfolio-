@@ -1,34 +1,30 @@
 ---
 import { getCollection } from 'astro:content';
 import PhotoItem from './PhotoItem.astro';
-import SectionMarker from './SectionMarker.astro';
 
-const photos = (await getCollection('photos')).sort(
+interface Props {
+  category?: 'marketing' | 'personal';
+}
+const { category } = Astro.props;
+
+const allPhotos = (await getCollection('photos')).sort(
   (a, b) => a.data.order - b.data.order
 );
+const photos = category
+  ? allPhotos.filter((p) => p.data.category === category)
+  : allPhotos;
 ---
 
-<section
-  id="photography"
-  class="py-section"
-  aria-labelledby="photography-heading"
->
-  <h2 id="photography-heading" class="sr-only">Photography</h2>
-  <SectionMarker word="PHOTOGRAPHY" />
-
-  <div class="px-site mt-8 md:mt-16">
-    <div class="photo-grid" id="photo-gallery">
-      {photos.map((photo) => (
-        <PhotoItem
-          src={photo.data.src}
-          alt={photo.data.alt}
-          aspectRatio={photo.data.aspectRatio}
-          caption={photo.data.caption}
-        />
-      ))}
-    </div>
-  </div>
-</section>
+<div class="photo-grid" id={`photo-gallery-${category ?? 'all'}`}>
+  {photos.map((photo) => (
+    <PhotoItem
+      src={photo.data.src}
+      alt={photo.data.alt}
+      aspectRatio={photo.data.aspectRatio}
+      caption={photo.data.caption}
+    />
+  ))}
+</div>
 
 <script>
   import '../scripts/lightbox';

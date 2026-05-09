@@ -1,6 +1,7 @@
 {
   "src": "../../assets/photos/05.jpg",
-  "alt": "Cinematic portrait 05",
+  "alt": "Editorial photograph 5",
   "aspectRatio": "3/4",
-  "order": 5
+  "order": 5,
+  "category": "marketing"
 }

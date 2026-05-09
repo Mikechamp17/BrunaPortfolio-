@@ -10,6 +10,7 @@ const photos = defineCollection({
       aspectRatio: z.enum(['3/4', '1/1', '4/3', '16/9']),
       order: z.number(),
       caption: z.string().optional(),
+      category: z.enum(['marketing', 'personal']).default('personal'),
     }),
 });
 

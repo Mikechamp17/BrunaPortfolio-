@@ -1,7 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import SectionMarker from './SectionMarker.astro';
+import VimeoEmbed from './VimeoEmbed.astro';
+import { getCollection } from 'astro:content';
 import portrait from '../assets/portrait.jpg';
+
+const videos = (await getCollection('videos')).sort((a, b) => a.data.order - b.data.order);
+const reel = videos[0];
 ---
 
 <section
@@ -12,13 +17,15 @@ import portrait from '../assets/portrait.jpg';
   <h2 id="about-heading" class="sr-only">About</h2>
   <SectionMarker word="ABOUT" />
 
+  <!-- Row 1: Portrait + Bio -->
   <div class="px-site mt-8 md:mt-16">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
       <!-- Portrait -->
+      <!-- REPLACE: swap src/assets/portrait.jpg with PHOZARO's actual portrait, keep filename -->
       <div data-reveal>
         <Image
           src={portrait}
-          alt="Portrait of Bruna"
+          alt="PHOZARO portrait"
           width={700}
           format="webp"
           quality={85}
@@ -31,26 +38,36 @@ import portrait from '../assets/portrait.jpg';
       <!-- Bio + clients -->
       <div class="flex flex-col gap-10" data-reveal>
         <div class="flex flex-col gap-6">
-          <p class="text-xs font-medium uppercase tracking-widest text-ink" style="letter-spacing: 0.15em;">
-            Biography
-          </p>
+          <p class="eyebrow">Biography</p>
           <p class="text-base leading-relaxed text-ink" style="max-width: 52ch;">
-            Bruna is a [city]-based photographer and filmmaker working at the
-            intersection of portraiture, fashion, and cinematic storytelling.
-            Her work explores light, color, and presence. Available for
-            editorial, commercial, and personal commissions worldwide.
+            PHOZARO is a Malta-based photographer, filmmaker, and content creator
+            working at the intersection of visual storytelling, brand identity,
+            and digital media. Every frame is intentional. Every project is
+            personal. Available for editorial, commercial, and creative
+            collaborations worldwide.
           </p>
         </div>
 
         <div class="flex flex-col gap-4">
-          <p class="text-xs font-medium uppercase tracking-widest text-ink" style="letter-spacing: 0.15em;">
-            Selected clients
-          </p>
+          <p class="eyebrow">Selected clients</p>
           <p class="text-sm leading-relaxed" style="color: #6B6B6B;">
-            [Client A] · [Client B] · [Publication C] · [Brand D] · [Client E]
+            Gaura Sumer · Browns Pharmacy · Malta Airport · McDonald's Malta · Balanced Lifestore · Maduma Reels
           </p>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Row 2: Showreel -->
+  {reel && (
+    <div class="px-site mt-16 md:mt-24" data-reveal>
+      <p class="eyebrow">Showreel</p>
+      <!-- REPLACE: update vimeoId in src/content/videos/reel.json with PHOZARO's real Vimeo reel ID -->
+      <VimeoEmbed
+        vimeoId={reel.data.vimeoId}
+        title={reel.data.title}
+        poster={reel.data.poster}
+      />
+    </div>
+  )}
 </section>
