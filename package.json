@@ -1,0 +1,26 @@
+{
+  "name": "bruna-portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource/anton": "^5.2.7",
+    "@fontsource/inter": "^5.2.8",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.2.2",
+    "lenis": "^1.3.23",
+    "photoswipe": "^5.4.4",
+    "tailwindcss": "^4.2.4"
+  },
+  "devDependencies": {
+    "firebase-tools": "^15.16.0"
+  }
+}

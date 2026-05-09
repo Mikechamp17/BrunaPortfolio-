@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import SectionMarker from './SectionMarker.astro';
+import portrait from '../assets/portrait.jpg';
+---
+
+<section
+  id="about"
+  class="py-section"
+  aria-labelledby="about-heading"
+>
+  <h2 id="about-heading" class="sr-only">About</h2>
+  <SectionMarker word="ABOUT" />
+
+  <div class="px-site mt-8 md:mt-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+      <!-- Portrait -->
+      <div data-reveal>
+        <Image
+          src={portrait}
+          alt="Portrait of Bruna"
+          width={700}
+          format="webp"
+          quality={85}
+          loading="lazy"
+          decoding="async"
+          style="width: 100%; height: auto; display: block;"
+        />
+      </div>
+
+      <!-- Bio + clients -->
+      <div class="flex flex-col gap-10" data-reveal>
+        <div class="flex flex-col gap-6">
+          <p class="text-xs font-medium uppercase tracking-widest text-ink" style="letter-spacing: 0.15em;">
+            Biography
+          </p>
+          <p class="text-base leading-relaxed text-ink" style="max-width: 52ch;">
+            Bruna is a [city]-based photographer and filmmaker working at the
+            intersection of portraiture, fashion, and cinematic storytelling.
+            Her work explores light, color, and presence. Available for
+            editorial, commercial, and personal commissions worldwide.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <p class="text-xs font-medium uppercase tracking-widest text-ink" style="letter-spacing: 0.15em;">
+            Selected clients
+          </p>
+          <p class="text-sm leading-relaxed" style="color: #6B6B6B;">
+            [Client A] · [Client B] · [Publication C] · [Brand D] · [Client E]
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import SectionMarker from '../components/SectionMarker.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import VimeoEmbed from '../components/VimeoEmbed.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import site from '../data/site.json';
+
+const videos = (await getCollection('videos')).sort((a, b) => a.data.order - b.data.order);
+const reel = videos[0];
+---
+
+<Base
+  title={`${site.name} — ${site.tagline}`}
+  description={`${site.name} is a ${site.tagline.toLowerCase()} working at the intersection of portraiture, fashion, and cinematic storytelling.`}
+>
+  <Nav />
+
+  <main id="main">
+    <Hero name={site.name} />
+
+    <PhotoGrid />
+
+    <!-- Videography -->
+    <section id="videography" class="py-section" aria-labelledby="videography-heading">
+      <h2 id="videography-heading" class="sr-only">Videography</h2>
+      <SectionMarker word="VIDEOGRAPHY" />
+
+      {reel && (
+        <div class="px-site mt-8 md:mt-16" data-reveal>
+          <VimeoEmbed
+            vimeoId={reel.data.vimeoId}
+            title={reel.data.title}
+            poster={reel.data.poster}
+          />
+        </div>
+      )}
+
+      <!-- Add videos as Bruna provides them -->
+      <div class="px-site mt-12">
+        <!-- Selected work goes here -->
+      </div>
+    </section>
+
+    <About />
+
+    <Contact
+      email={site.email}
+      instagram={site.instagram}
+      location={site.location}
+    />
+  </main>
+
+  <Footer />
+</Base>
+
+<script>
+  import '../scripts/lenis';
+  import '../scripts/reveal';
+</script>
