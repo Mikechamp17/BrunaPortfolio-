@@ -1,23 +1,14 @@
 # ─────────────────────────────────────────────────────────
 # PHOZARO Admin — Decap CMS config
-#
-# BEFORE THIS WORKS you must complete 2 manual steps:
-#
-# 1. Create a GitHub OAuth App at github.com/settings/developers
-#    Callback URL must be: https://api.netlify.com/auth/done
-#
-# 2. Create a free Netlify site, enable GitHub OAuth under
-#    Site config → Access control → OAuth → GitHub
-#    Then replace the base_url below with your Netlify site URL.
-#
-# Full instructions: see phozaro-decap-cms-spec.md
+# OAuth proxy: sparkling-creponne-c2cf76.netlify.app
+# GitHub OAuth App: Mikechamp17 / PHOZARO Admin
 # ─────────────────────────────────────────────────────────
 
 backend:
   name: github
   repo: Mikechamp17/BrunaPortfolio-   # GitHub repo: owner/repo-name
   branch: main
-  base_url: https://phozaro-oauth.netlify.app  # REPLACE with your actual Netlify site URL (see Section A Step 3)
+  base_url: https://sparkling-creponne-c2cf76.netlify.app
 
 # Where uploaded images are saved in the repo
 media_folder: src/assets/uploads
