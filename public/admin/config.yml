@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────
 # PHOZARO Admin — Decap CMS config
-# OAuth proxy: sparkling-creponne-c2cf76.netlify.app
+# OAuth proxy: netlify-cms-github-oauth-provider-u8uigodyr-mike1712.vercel.app
 # GitHub OAuth App: Mikechamp17 / PHOZARO Admin
 # ─────────────────────────────────────────────────────────
 
@@ -8,7 +8,7 @@ backend:
   name: github
   repo: Mikechamp17/BrunaPortfolio-   # GitHub repo: owner/repo-name
   branch: main
-  base_url: https://sparkling-creponne-c2cf76.netlify.app
+  base_url: https://netlify-cms-github-oauth-provider-u8uigodyr-mike1712.vercel.app
 
 # Where uploaded images are saved in the repo
 media_folder: src/assets/uploads
