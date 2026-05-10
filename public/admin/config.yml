@@ -1,44 +1,104 @@
+# ─────────────────────────────────────────────────────────
+# PHOZARO Admin — Decap CMS config
+#
+# BEFORE THIS WORKS you must complete 2 manual steps:
+#
+# 1. Create a GitHub OAuth App at github.com/settings/developers
+#    Callback URL must be: https://api.netlify.com/auth/done
+#
+# 2. Create a free Netlify site, enable GitHub OAuth under
+#    Site config → Access control → OAuth → GitHub
+#    Then replace the base_url below with your Netlify site URL.
+#
+# Full instructions: see phozaro-decap-cms-spec.md
+# ─────────────────────────────────────────────────────────
+
 backend:
   name: github
-  repo: Mikechamp17/BrunaPortfolio-
+  repo: Mikechamp17/BrunaPortfolio-   # GitHub repo: owner/repo-name
   branch: main
-  base_url: https://phozaro-oauth.netlify.app  # OAuth proxy — see README setup notes
+  base_url: https://phozaro-oauth.netlify.app  # REPLACE with your actual Netlify site URL (see Section A Step 3)
 
-media_folder: src/assets/photos
-public_folder: ../../assets/photos
+# Where uploaded images are saved in the repo
+media_folder: src/assets/uploads
+
+# How that path is written into content files
+# (relative from src/content/projects/ up to src/assets/uploads/)
+public_folder: ../../assets/uploads
+
+# ─────────────────────────────────────────────
+# COLLECTIONS
+# ─────────────────────────────────────────────
 
 collections:
-  # ── Photos ──────────────────────────────────────────────
-  - name: photos
-    label: Photos
-    label_singular: Photo
-    folder: src/content/photos
+
+  # ── Projects (main portfolio — Bruna uses this most) ──
+  - name: projects
+    label: Portfolio Projects
+    label_singular: Project
+    folder: src/content/projects
     format: json
     extension: json
     create: true
-    slug: "{{order}}"
+    delete: true
+    slug: "{{slug}}"
     fields:
-      - { label: Image, name: src, widget: image, media_folder: /src/assets/photos, public_folder: "../../assets/photos" }
-      - { label: Alt text, name: alt, widget: string, hint: "Describe the photo for screen readers" }
-      - label: Aspect Ratio
-        name: aspectRatio
-        widget: select
-        options:
-          - { label: "Portrait (3:4)", value: "3/4" }
-          - { label: "Square (1:1)", value: "1/1" }
-          - { label: "Landscape (4:3)", value: "4/3" }
-          - { label: "Widescreen (16:9)", value: "16/9" }
-      - { label: Order, name: order, widget: number, value_type: int, hint: "Display order (lower = first)" }
+      - label: Project Title
+        name: title
+        widget: string
+        hint: "e.g. Gaura Sumer Campaign"
+
+      - label: URL Slug
+        name: slug
+        widget: string
+        hint: "URL-safe version of the title — lowercase, hyphens only. e.g. gaura-sumer-campaign"
+        pattern: ['^[a-z0-9-]+$', "Lowercase letters, numbers, and hyphens only"]
+
       - label: Category
         name: category
         widget: select
         options:
           - { label: "Multimedia Marketing", value: "marketing" }
-          - { label: "Personal Work", value: "personal" }
-        default: personal
-      - { label: Caption (optional), name: caption, widget: string, required: false }
+          - { label: "Personal Work",        value: "personal"  }
 
-  # ── Site settings ────────────────────────────────────────
+      - label: Display Order
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        hint: "Lower number = appears first in the list"
+
+      - label: Project Description
+        name: description
+        widget: text
+        hint: "2–3 sentences about the project. Shown on the project page."
+
+      - label: Cover Image
+        name: coverImage
+        widget: image
+        hint: "Main image shown in the hero on the project page"
+        media_folder: /src/assets/uploads
+        public_folder: "../../assets/uploads"
+
+      - label: Gallery Images
+        name: images
+        widget: list
+        required: false
+        hint: "Additional photos shown in the gallery grid on the project page"
+        field:
+          label: Image
+          name: image
+          widget: image
+          media_folder: /src/assets/uploads
+          public_folder: "../../assets/uploads"
+
+      - label: Vimeo ID
+        name: vimeoId
+        widget: string
+        required: false
+        hint: "Optional. The number from a Vimeo URL — e.g. for vimeo.com/76979871 enter 76979871"
+
+  # ── Site Settings ──────────────────────────────────────
   - name: settings
     label: Site Settings
     files:
@@ -46,15 +106,15 @@ collections:
         name: site
         file: src/data/site.json
         fields:
-          - { label: Name, name: name, widget: string }
-          - { label: Tagline, name: tagline, widget: string }
-          - { label: Location, name: location, widget: string }
-          - { label: Year Started, name: yearStarted, widget: number, value_type: int }
-          - { label: Email, name: email, widget: string }
-          - { label: Instagram handle, name: instagram, widget: string, hint: "Include the @ symbol" }
-          - { label: Vimeo URL, name: vimeo, widget: string }
+          - { label: "Your Name / Brand",  name: name,        widget: string }
+          - { label: Tagline,              name: tagline,     widget: string }
+          - { label: Location,             name: location,    widget: string }
+          - { label: Year Started,         name: yearStarted, widget: number, value_type: int }
+          - { label: Email Address,        name: email,       widget: string }
+          - { label: Instagram Handle,     name: instagram,   widget: string, hint: "Include the @ symbol" }
+          - { label: Vimeo URL,            name: vimeo,       widget: string }
 
-  # ── Videos ───────────────────────────────────────────────
+  # ── Videos (showreel) ─────────────────────────────────
   - name: videos
     label: Videos
     label_singular: Video
@@ -63,7 +123,14 @@ collections:
     extension: json
     create: true
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Vimeo ID, name: vimeoId, widget: string, hint: "The number from the Vimeo URL, e.g. 76979871" }
-      - { label: Poster image, name: poster, widget: image, media_folder: /src/assets/video-posters, public_folder: "../../assets/video-posters" }
+      - { label: Title,      name: title,   widget: string }
+      - label: Vimeo ID
+        name: vimeoId
+        widget: string
+        hint: "The number from the Vimeo URL — e.g. 76979871"
+      - label: Poster Image
+        name: poster
+        widget: image
+        media_folder: /src/assets/video-posters
+        public_folder: "../../assets/video-posters"
       - { label: Order, name: order, widget: number, value_type: int }
