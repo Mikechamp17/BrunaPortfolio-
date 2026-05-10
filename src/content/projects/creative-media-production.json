@@ -4,10 +4,10 @@
   "category": "personal",
   "order": 1,
   "description": "Personal creative direction — exploring the boundaries between photography, video, and visual art.",
-  "coverImage": "../../assets/photos/11.jpg",
+  "coverImage": "../../assets/photos/creative-cover.jpg",
   "images": [
-    "../../assets/photos/11.jpg",
-    "../../assets/photos/12.jpg",
-    "../../assets/photos/13.jpg"
+    "../../assets/photos/creative-01.jpg",
+    "../../assets/photos/creative-02.jpg",
+    "../../assets/photos/creative-03.jpg"
   ]
 }

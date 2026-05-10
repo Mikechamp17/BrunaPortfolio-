@@ -4,8 +4,9 @@
   "category": "personal",
   "order": 4,
   "description": "User-generated content experiments — raw, authentic, and built for how people actually consume media today.",
-  "coverImage": "../../assets/photos/18.jpg",
+  "coverImage": "../../assets/photos/ugc-cover.jpg",
   "images": [
-    "../../assets/photos/18.jpg"
+    "../../assets/photos/ugc-01.jpg",
+    "../../assets/photos/ugc-02.jpg"
   ]
 }
