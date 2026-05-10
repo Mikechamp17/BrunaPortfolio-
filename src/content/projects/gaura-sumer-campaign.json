@@ -1,0 +1,13 @@
+{
+  "title": "Gaura Sumer Campaign",
+  "slug": "gaura-sumer-campaign",
+  "category": "marketing",
+  "order": 1,
+  "description": "A full visual campaign for Gaura Sumer — brand photography and content creation capturing the essence of the collection.",
+  "coverImage": "../../assets/photos/01.jpg",
+  "images": [
+    "../../assets/photos/01.jpg",
+    "../../assets/photos/02.jpg",
+    "../../assets/photos/03.jpg"
+  ]
+}

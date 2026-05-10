@@ -1,0 +1,12 @@
+{
+  "title": "Malta Airport",
+  "slug": "malta-airport",
+  "category": "marketing",
+  "order": 3,
+  "description": "Visual content production for Malta International Airport — capturing movement, travel, and the spirit of the island.",
+  "coverImage": "../../assets/photos/06.jpg",
+  "images": [
+    "../../assets/photos/06.jpg",
+    "../../assets/photos/07.jpg"
+  ]
+}

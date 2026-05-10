@@ -1,0 +1,168 @@
+---
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+
+const marketing = allProjects
+  .filter(p => p.data.category === 'marketing')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const personal = allProjects
+  .filter(p => p.data.category === 'personal')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const tiles = [
+  { id: 'marketing', label: 'Multimedia Marketing', projects: marketing },
+  { id: 'personal',  label: 'Personal Work',         projects: personal  },
+];
+---
+
+<div class="portfolio-tiles px-site mt-8 md:mt-16">
+  {tiles.map((tile) => (
+    <details class="portfolio-tile" data-reveal>
+      <summary class="portfolio-tile__summary" aria-label={`Expand ${tile.label}`}>
+        <span class="portfolio-tile__label">{tile.label}</span>
+        <span class="portfolio-tile__arrow" aria-hidden="true">↓</span>
+      </summary>
+
+      <ul class="portfolio-tile__list" role="list">
+        {tile.projects.map((project, i) => (
+          <li class="portfolio-tile__item">
+            <a href={`/portfolio/${project.data.slug}`} class="portfolio-tile__link">
+              <span class="portfolio-tile__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="portfolio-tile__title">{project.data.title}</span>
+              <span class="portfolio-tile__arrow-right" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  ))}
+</div>
+
+<style>
+  .portfolio-tiles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: #E8E8E8;
+    border: 1px solid #E8E8E8;
+  }
+
+  @media (min-width: 768px) {
+    .portfolio-tiles {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* The tile (closed state) */
+  .portfolio-tile {
+    background: #ffffff;
+    cursor: pointer;
+  }
+
+  /* The clickable tile header */
+  .portfolio-tile__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3vw, 3rem);
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    transition: background 300ms ease;
+  }
+
+  .portfolio-tile__summary::-webkit-details-marker { display: none; }
+  .portfolio-tile__summary::marker { display: none; }
+
+  .portfolio-tile__summary:hover {
+    background: #F5F5F5;
+  }
+
+  .portfolio-tile[open] .portfolio-tile__summary {
+    background: #0A0A0A;
+  }
+
+  .portfolio-tile[open] .portfolio-tile__label,
+  .portfolio-tile[open] .portfolio-tile__arrow {
+    color: #ffffff;
+  }
+
+  .portfolio-tile__label {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+    color: #0A0A0A;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    transition: color 300ms ease;
+  }
+
+  .portfolio-tile__arrow {
+    font-size: 1.5rem;
+    color: #6B6B6B;
+    transition: transform 300ms ease, color 300ms ease;
+  }
+
+  .portfolio-tile[open] .portfolio-tile__arrow {
+    transform: rotate(180deg);
+  }
+
+  /* The project list (open state) */
+  .portfolio-tile__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #E8E8E8;
+  }
+
+  .portfolio-tile__item {
+    border-bottom: 1px solid #E8E8E8;
+  }
+
+  .portfolio-tile__item:last-child {
+    border-bottom: none;
+  }
+
+  .portfolio-tile__link {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem clamp(1.5rem, 3vw, 3rem);
+    text-decoration: none;
+    transition: background 200ms ease, padding-left 200ms ease;
+  }
+
+  .portfolio-tile__link:hover {
+    background: #F5F5F5;
+    padding-left: calc(clamp(1.5rem, 3vw, 3rem) + 0.5rem);
+  }
+
+  .portfolio-tile__num {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #B0B0B0;
+    letter-spacing: 0.1em;
+    min-width: 1.75rem;
+  }
+
+  .portfolio-tile__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #0A0A0A;
+    flex: 1;
+  }
+
+  .portfolio-tile__arrow-right {
+    font-size: 1rem;
+    color: #B0B0B0;
+    transition: color 200ms ease, transform 200ms ease;
+  }
+
+  .portfolio-tile__link:hover .portfolio-tile__arrow-right {
+    color: #0A0A0A;
+    transform: translateX(3px);
+  }
+</style>

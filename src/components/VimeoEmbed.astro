@@ -5,7 +5,7 @@ import type { ImageMetadata } from 'astro';
 interface Props {
   vimeoId: string;
   title: string;
-  poster: ImageMetadata;
+  poster?: ImageMetadata;
 }
 
 const { vimeoId, title, poster } = Astro.props;
@@ -19,16 +19,25 @@ const embedUrl = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&b
   data-title={title}
 >
   <!-- Poster shown until in-viewport -->
-  <Image
-    src={poster}
-    alt={`${title} — play video`}
-    width={1920}
-    format="webp"
-    quality={80}
-    loading="lazy"
-    decoding="async"
-    id={`vimeo-poster-${vimeoId}`}
-  />
+  {poster && (
+    <Image
+      src={poster}
+      alt={`${title} — play video`}
+      width={1920}
+      format="webp"
+      quality={80}
+      loading="lazy"
+      decoding="async"
+      id={`vimeo-poster-${vimeoId}`}
+    />
+  )}
+  {!poster && (
+    <div
+      id={`vimeo-poster-${vimeoId}`}
+      style="width: 100%; padding-top: 56.25%; background: #0A0A0A;"
+      aria-hidden="true"
+    ></div>
+  )}
   <button
     class="absolute inset-0 flex items-center justify-center bg-transparent border-none cursor-pointer w-full h-full"
     aria-label={`Play ${title}`}

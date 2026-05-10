@@ -1,0 +1,12 @@
+{
+  "title": "Urban",
+  "slug": "urban",
+  "category": "personal",
+  "order": 2,
+  "description": "Street photography and urban portraiture — finding beauty in the textures and rhythms of city life.",
+  "coverImage": "../../assets/photos/14.jpg",
+  "images": [
+    "../../assets/photos/14.jpg",
+    "../../assets/photos/15.jpg"
+  ]
+}

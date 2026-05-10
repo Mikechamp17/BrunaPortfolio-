@@ -25,4 +25,19 @@ const videos = defineCollection({
     }),
 });
 
-export const collections = { photos, videos };
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/projects' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      slug: z.string(),
+      category: z.enum(['marketing', 'personal']),
+      order: z.number(),
+      description: z.string(),
+      coverImage: image(),
+      images: z.array(image()).optional(),
+      vimeoId: z.string().optional(),
+    }),
+});
+
+export const collections = { photos, videos, projects };

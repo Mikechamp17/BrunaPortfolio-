@@ -1,0 +1,11 @@
+{
+  "title": "UGC Creation",
+  "slug": "ugc-creation",
+  "category": "personal",
+  "order": 4,
+  "description": "User-generated content experiments — raw, authentic, and built for how people actually consume media today.",
+  "coverImage": "../../assets/photos/18.jpg",
+  "images": [
+    "../../assets/photos/18.jpg"
+  ]
+}

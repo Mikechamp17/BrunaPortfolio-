@@ -1,0 +1,12 @@
+{
+  "title": "McDonald's Malta",
+  "slug": "mcdonalds-malta",
+  "category": "marketing",
+  "order": 4,
+  "description": "Social media content and UGC-style video production for McDonald's Malta — fast, engaging, on-brand.",
+  "coverImage": "../../assets/photos/08.jpg",
+  "images": [
+    "../../assets/photos/08.jpg",
+    "../../assets/photos/09.jpg"
+  ]
+}

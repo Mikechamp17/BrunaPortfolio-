@@ -1,0 +1,12 @@
+{
+  "title": "Nature",
+  "slug": "nature",
+  "category": "personal",
+  "order": 3,
+  "description": "Landscape and nature photography — light, stillness, and the quiet drama of the natural world.",
+  "coverImage": "../../assets/photos/16.jpg",
+  "images": [
+    "../../assets/photos/16.jpg",
+    "../../assets/photos/17.jpg"
+  ]
+}

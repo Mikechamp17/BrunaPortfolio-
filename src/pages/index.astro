@@ -4,7 +4,7 @@ import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import SectionMarker from '../components/SectionMarker.astro';
-import PhotoGrid from '../components/PhotoGrid.astro';
+import PortfolioTiles from '../components/PortfolioTiles.astro';
 import About from '../components/About.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
@@ -27,23 +27,7 @@ import site from '../data/site.json';
       <h2 id="portfolio-heading" class="sr-only">Portfolio</h2>
       <SectionMarker word="PORTFOLIO" />
 
-      <!-- Multimedia Marketing -->
-      <div class="px-site mt-8 md:mt-16">
-        <p class="eyebrow">Multimedia Marketing</p>
-        <PhotoGrid category="marketing" />
-        <p class="brands-strip">
-          Gaura Sumer Campaign · Browns Pharmacy · Malta Airport · McDonald's Malta · Balanced Lifestore · Maduma Reels
-        </p>
-      </div>
-
-      <!-- Personal Work -->
-      <div class="px-site" style="margin-top: clamp(5rem, 10vw, 9rem);">
-        <p class="eyebrow">Personal Work</p>
-        <PhotoGrid category="personal" />
-        <p class="brands-strip">
-          Creative Media Production · Urban · Nature · UGC Creation
-        </p>
-      </div>
+      <PortfolioTiles />
     </section>
 
     <About />

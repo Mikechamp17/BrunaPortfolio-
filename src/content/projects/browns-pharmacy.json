@@ -1,0 +1,12 @@
+{
+  "title": "Browns Pharmacy",
+  "slug": "browns-pharmacy",
+  "category": "marketing",
+  "order": 2,
+  "description": "Brand and product photography for Browns Pharmacy, blending clinical precision with a clean editorial look.",
+  "coverImage": "../../assets/photos/04.jpg",
+  "images": [
+    "../../assets/photos/04.jpg",
+    "../../assets/photos/05.jpg"
+  ]
+}
