@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Mikechamp17/BrunaPortfolio-
   branch: main
-  base_url: https://phozaro-oauth.netlify.app  # OAuth proxy — see README setup notes
+  base_url: https://phozaro-auth.vercel.app
 
 media_folder: src/assets/photos
 public_folder: ../../assets/photos
@@ -105,10 +105,10 @@ collections:
         name: site
         file: src/data/site.json
         fields:
-          - { label: Name, name: name, widget: string }
+          - { label: "Your Name / Brand", name: name, widget: string }
           - { label: Tagline, name: tagline, widget: string }
           - { label: Location, name: location, widget: string }
           - { label: Year Started, name: yearStarted, widget: number, value_type: int }
-          - { label: Email, name: email, widget: string }
-          - { label: Instagram handle, name: instagram, widget: string, hint: "Include the @ symbol" }
+          - { label: Email Address, name: email, widget: string }
+          - { label: Instagram Handle, name: instagram, widget: string, hint: "Include the @ symbol" }
           - { label: Vimeo URL, name: vimeo, widget: string }

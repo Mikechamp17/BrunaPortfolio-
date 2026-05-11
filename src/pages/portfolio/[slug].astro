@@ -34,12 +34,17 @@ const categoryLabel =
   <Nav />
 
   <main id="main">
+
+    <!-- Campaign header -->
     <section class="px-site campaign-header">
       <a href={backHref} class="campaign-back">← {categoryLabel}</a>
       <h1 class="campaign-headline">{title}</h1>
-      {description && <p class="campaign-desc">{description}</p>}
+      {description && (
+        <p class="campaign-desc">{description}</p>
+      )}
     </section>
 
+    <!-- Photo gallery -->
     <div class="px-site campaign-gallery-wrap">
       {photos.length === 0 ? (
         <p class="campaign-empty">No photos yet for this project.</p>
@@ -57,9 +62,11 @@ const categoryLabel =
       )}
     </div>
 
+    <!-- Back link -->
     <div class="px-site campaign-back-bottom">
       <a href={backHref} class="campaign-back">← Back to {categoryLabel}</a>
     </div>
+
   </main>
 
   <Footer />
@@ -93,9 +100,9 @@ const categoryLabel =
   }
   .campaign-desc {
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: #6B6B6B;
-    line-height: 1.7;
+    line-height: 1.8;
     max-width: 60ch;
     margin: 1.5rem 0 0;
   }

@@ -1,0 +1,13 @@
+{
+  "title": "Creative Media Production",
+  "slug": "creative-media-production",
+  "category": "personal",
+  "order": 1,
+  "description": "Personal creative direction — exploring the boundaries between photography, video, and visual art.",
+  "coverImage": "../../assets/photos/creative-cover.jpg",
+  "images": [
+    "../../assets/photos/creative-01.jpg",
+    "../../assets/photos/creative-02.jpg",
+    "../../assets/photos/creative-03.jpg"
+  ]
+}
