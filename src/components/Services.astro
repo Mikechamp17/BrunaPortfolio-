@@ -4,31 +4,37 @@ const services = [
     num: '01',
     title: 'Media Production',
     desc: 'Full-scale video and photo production for brands',
+    exampleHref: '/portfolio/marketing',
   },
   {
     num: '02',
     title: 'Social Media Management',
     desc: 'Strategy, content, and consistency for your channels',
+    exampleHref: '/portfolio/marketing',
   },
   {
     num: '03',
     title: 'Personalized Photoshoot',
     desc: 'Tailored portrait and editorial sessions',
+    exampleHref: '/portfolio/personal',
   },
   {
     num: '04',
     title: 'UGC Creation',
     desc: 'Authentic user-generated style content for campaigns',
+    exampleHref: '/portfolio/marketing',
   },
   {
     num: '05',
     title: 'Modeling',
     desc: 'Editorial, commercial, and creative direction',
+    exampleHref: '/portfolio/marketing',
   },
   {
     num: '06',
     title: 'Abilities & Roles',
     desc: 'Multidisciplinary creative available for collaborations',
+    exampleHref: '/portfolio/personal',
   },
 ];
 ---
@@ -38,7 +44,6 @@ const services = [
   class="py-section px-site"
   aria-labelledby="services-heading"
 >
-  <!-- Heading -->
   <h2
     id="services-heading"
     style="font-family: 'Anton', sans-serif; font-size: clamp(2rem, 6vw, 4rem); color: #0A0A0A; line-height: 1; letter-spacing: -0.02em;"
@@ -51,7 +56,6 @@ const services = [
     It's time to create.
   </p>
 
-  <!-- Cards grid -->
   <div
     style="display: grid; grid-template-columns: 1fr; gap: 1rem;"
     class="services-grid"
@@ -60,41 +64,84 @@ const services = [
       <div
         class="service-card"
         data-reveal
-        style="background: white; border: 1px solid #E8E8E8; padding: clamp(1.5rem, 3vw, 2.5rem); transition: border-color 300ms ease;"
       >
-        <p
-          style="font-family: 'Anton', sans-serif; font-size: 3rem; color: #E8E8E8; line-height: 1; margin: 0;"
-          aria-hidden="true"
-        >
-          {s.num}
-        </p>
-        <p
-          style="font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 700; color: #0A0A0A; margin-top: 0.5rem;"
-        >
-          {s.title}
-        </p>
-        <p
-          style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: #6B6B6B; margin-top: 0.5rem; line-height: 1.7;"
-        >
-          {s.desc}
-        </p>
+        <p class="service-card__num" aria-hidden="true">{s.num}</p>
+        <p class="service-card__title">{s.title}</p>
+        <p class="service-card__desc">{s.desc}</p>
+        <a href={s.exampleHref} class="service-card__example-btn">
+          See example in portfolio →
+        </a>
       </div>
     ))}
   </div>
 </section>
 
 <style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
   @media (min-width: 640px) {
-    .services-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (min-width: 1024px) {
-    .services-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .services-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #E8E8E8;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    transition: border-color 300ms ease;
   }
   .service-card:hover {
     border-color: #0A0A0A;
+  }
+
+  .service-card__num {
+    font-family: 'Anton', sans-serif;
+    font-size: 3rem;
+    color: #E8E8E8;
+    line-height: 1;
+    margin: 0;
+  }
+  .service-card__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0A0A0A;
+    margin-top: 0.5rem;
+  }
+  .service-card__desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: #6B6B6B;
+    margin-top: 0.5rem;
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .service-card__example-btn {
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #0A0A0A;
+    text-decoration: none;
+    border: 1px solid #D0D0D0;
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    letter-spacing: 0.03em;
+    transition: border-color 200ms ease, background 200ms ease, color 200ms ease;
+  }
+  .service-card__example-btn:hover {
+    border-color: #0A0A0A;
+    background: #0A0A0A;
+    color: #ffffff;
   }
 </style>

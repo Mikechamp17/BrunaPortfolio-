@@ -58,11 +58,11 @@ const reel = videos[0];
     </div>
   </div>
 
-  <!-- Row 2: Showreel -->
+  <!-- Row 2: Featured Video -->
   {reel && (
     <div class="px-site mt-16 md:mt-24" data-reveal>
-      <p class="eyebrow">Showreel</p>
-      <!-- REPLACE: update vimeoId in src/content/videos/reel.json with PHOZARO's real Vimeo reel ID -->
+      <p class="eyebrow">Featured Video</p>
+      <!-- REPLACE: update vimeoId in src/content/videos/reel.json with the number from your Vimeo URL (e.g. vimeo.com/123456789 -> use 123456789) -->
       <VimeoEmbed
         vimeoId={reel.data.vimeoId}
         title={reel.data.title}

@@ -1,0 +1,125 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import PhotoItem from '../../components/PhotoItem.astro';
+
+export async function getStaticPaths() {
+  const campaigns = await getCollection('campaigns');
+  return campaigns.map((c) => ({
+    params: { slug: c.data.slug },
+    props: { campaign: c },
+  }));
+}
+
+const { campaign } = Astro.props;
+const { title, category, description } = campaign.data;
+
+const allPhotos = await getCollection('photos');
+const photos = allPhotos
+  .filter((p) => p.data.campaign === campaign.data.slug)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const backHref =
+  category === 'marketing' ? '/portfolio/marketing' : '/portfolio/personal';
+const categoryLabel =
+  category === 'marketing' ? 'Multimedia Marketing' : 'Personal Work';
+---
+
+<Base
+  title={`${title} — PHOZARO`}
+  description={description || `${title} — ${categoryLabel} project by PHOZARO.`}
+>
+  <Nav />
+
+  <main id="main">
+    <section class="px-site campaign-header">
+      <a href={backHref} class="campaign-back">← {categoryLabel}</a>
+      <h1 class="campaign-headline">{title}</h1>
+      {description && <p class="campaign-desc">{description}</p>}
+    </section>
+
+    <div class="px-site campaign-gallery-wrap">
+      {photos.length === 0 ? (
+        <p class="campaign-empty">No photos yet for this project.</p>
+      ) : (
+        <div class="photo-grid" id={`photo-gallery-${campaign.data.slug}`}>
+          {photos.map((photo) => (
+            <PhotoItem
+              src={photo.data.src}
+              alt={photo.data.alt}
+              aspectRatio={photo.data.aspectRatio}
+              caption={photo.data.caption}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="px-site campaign-back-bottom">
+      <a href={backHref} class="campaign-back">← Back to {categoryLabel}</a>
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .campaign-header {
+    padding-top: clamp(8rem, 14vw, 12rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .campaign-back {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #6B6B6B;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: color 200ms ease;
+  }
+  .campaign-back:hover { color: #0A0A0A; }
+  .campaign-headline {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 10vw, 8rem);
+    color: #0A0A0A;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .campaign-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #6B6B6B;
+    line-height: 1.7;
+    max-width: 60ch;
+    margin: 1.5rem 0 0;
+  }
+  .campaign-gallery-wrap {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .campaign-empty {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #6B6B6B;
+    text-align: center;
+    padding: 4rem 0;
+  }
+  .campaign-back-bottom {
+    padding-bottom: clamp(4rem, 10vw, 10rem);
+    border-top: 1px solid #E8E8E8;
+    padding-top: clamp(2rem, 4vw, 3rem);
+  }
+  .campaign-back-bottom .campaign-back {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lightbox';
+</script>

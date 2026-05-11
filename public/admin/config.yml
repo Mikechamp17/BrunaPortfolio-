@@ -36,7 +36,66 @@ collections:
           - { label: "Multimedia Marketing", value: "marketing" }
           - { label: "Personal Work", value: "personal" }
         default: personal
-      - { label: Caption (optional), name: caption, widget: string, required: false }
+      - label: Campaign
+        name: campaign
+        widget: relation
+        collection: campaigns
+        search_fields: [title]
+        value_field: slug
+        display_fields: [title]
+        required: false
+        hint: "Assign this photo to a campaign / project"
+      - { label: Caption (optional), name: caption, widget: string, required: false, hint: "Short text shown when someone hovers the photo" }
+
+  # ── Campaigns / Projects ─────────────────────────────────
+  - name: campaigns
+    label: Campaigns
+    label_singular: Campaign
+    folder: src/content/campaigns
+    format: json
+    extension: json
+    create: true
+    identifier_field: title
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string, hint: "Project / campaign name shown on the portfolio list" }
+      - { label: Slug, name: slug, widget: string, hint: "URL-friendly identifier, e.g. gaura-sumer-campaign. Lowercase, dashes only." }
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - { label: "Multimedia Marketing", value: "marketing" }
+          - { label: "Personal Work", value: "personal" }
+      - { label: Order, name: order, widget: number, value_type: int, hint: "Order in the category list (lower = first)" }
+      - { label: Description (optional), name: description, widget: text, required: false, hint: "Short paragraph shown on the campaign page" }
+
+  # ── Client logos ─────────────────────────────────────────
+  - name: logos
+    label: Client Logos
+    label_singular: Logo
+    folder: src/content/logos
+    format: json
+    extension: json
+    create: true
+    identifier_field: name
+    fields:
+      - { label: Brand name, name: name, widget: string, hint: "Used as the logo's alt text" }
+      - { label: Logo image, name: src, widget: image, media_folder: /src/assets/logos, public_folder: "../../assets/logos", hint: "SVG preferred. Transparent background." }
+      - { label: Order, name: order, widget: number, value_type: int, hint: "Order in the homepage loop (lower = first)" }
+
+  # ── Videos ───────────────────────────────────────────────
+  - name: videos
+    label: Videos
+    label_singular: Video
+    folder: src/content/videos
+    format: json
+    extension: json
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Vimeo ID, name: vimeoId, widget: string, hint: "The number from the Vimeo URL, e.g. 76979871" }
+      - { label: Poster image, name: poster, widget: image, media_folder: /src/assets/video-posters, public_folder: "../../assets/video-posters" }
+      - { label: Order, name: order, widget: number, value_type: int }
 
   # ── Site settings ────────────────────────────────────────
   - name: settings
@@ -53,17 +112,3 @@ collections:
           - { label: Email, name: email, widget: string }
           - { label: Instagram handle, name: instagram, widget: string, hint: "Include the @ symbol" }
           - { label: Vimeo URL, name: vimeo, widget: string }
-
-  # ── Videos ───────────────────────────────────────────────
-  - name: videos
-    label: Videos
-    label_singular: Video
-    folder: src/content/videos
-    format: json
-    extension: json
-    create: true
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Vimeo ID, name: vimeoId, widget: string, hint: "The number from the Vimeo URL, e.g. 76979871" }
-      - { label: Poster image, name: poster, widget: image, media_folder: /src/assets/video-posters, public_folder: "../../assets/video-posters" }
-      - { label: Order, name: order, widget: number, value_type: int }

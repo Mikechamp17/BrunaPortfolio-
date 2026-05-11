@@ -1,0 +1,91 @@
+---
+const tiles = [
+  {
+    id: 'marketing',
+    label: 'Multimedia Marketing',
+    href: '/portfolio/marketing',
+  },
+  {
+    id: 'personal',
+    label: 'Personal Work',
+    href: '/portfolio/personal',
+  },
+];
+---
+
+<div class="portfolio-tiles px-site mt-8 md:mt-16">
+  {tiles.map((tile) => (
+    <a
+      href={tile.href}
+      class="portfolio-tile"
+      data-reveal
+      aria-label={`View ${tile.label} projects`}
+    >
+      <span class="portfolio-tile__label">{tile.label}</span>
+      <span class="portfolio-tile__arrow" aria-hidden="true">→</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .portfolio-tiles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: #E8E8E8;
+    border: 1px solid #E8E8E8;
+  }
+
+  @media (min-width: 768px) {
+    .portfolio-tiles {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .portfolio-tile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 3vw, 3rem);
+    background: #ffffff;
+    text-decoration: none;
+    transition: background 300ms ease;
+    cursor: pointer;
+  }
+
+  .portfolio-tile:hover {
+    background: #0A0A0A;
+  }
+
+  .portfolio-tile__label {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+    color: #0A0A0A;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    transition: color 300ms ease;
+  }
+
+  .portfolio-tile:hover .portfolio-tile__label {
+    color: #ffffff;
+  }
+
+  .portfolio-tile__arrow {
+    font-size: 1.5rem;
+    color: #B0B0B0;
+    transition: color 300ms ease, transform 300ms ease;
+  }
+
+  .portfolio-tile:hover .portfolio-tile__arrow {
+    color: #ffffff;
+    transform: translateX(6px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-tile,
+    .portfolio-tile__label,
+    .portfolio-tile__arrow {
+      transition: none;
+    }
+  }
+</style>

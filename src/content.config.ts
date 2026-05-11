@@ -11,6 +11,7 @@ const photos = defineCollection({
       order: z.number(),
       caption: z.string().optional(),
       category: z.enum(['marketing', 'personal']).default('personal'),
+      campaign: z.string().optional(),
     }),
 });
 
@@ -25,4 +26,25 @@ const videos = defineCollection({
     }),
 });
 
-export const collections = { photos, videos };
+const campaigns = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/campaigns' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    category: z.enum(['marketing', 'personal']),
+    order: z.number(),
+    description: z.string().optional(),
+  }),
+});
+
+const logos = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/logos' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      src: image(),
+      order: z.number(),
+    }),
+});
+
+export const collections = { photos, videos, campaigns, logos };
