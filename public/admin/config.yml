@@ -1,111 +1,89 @@
-# ─────────────────────────────────────────────────────────
-# PHOZARO Admin — Decap CMS config
-# OAuth proxy: phozaro-auth.vercel.app
-# GitHub OAuth App: Mikechamp17 / PHOZARO Admin
-# ─────────────────────────────────────────────────────────
-
 backend:
   name: github
-  repo: Mikechamp17/BrunaPortfolio-   # GitHub repo: owner/repo-name
+  repo: Mikechamp17/BrunaPortfolio-
   branch: main
   base_url: https://phozaro-auth.vercel.app
 
-# Where uploaded images are saved in the repo
-media_folder: src/assets/uploads
-
-# How that path is written into content files
-# (relative from src/content/projects/ up to src/assets/uploads/)
-public_folder: ../../assets/uploads
-
-# ─────────────────────────────────────────────
-# COLLECTIONS
-# ─────────────────────────────────────────────
+media_folder: src/assets/photos
+public_folder: ../../assets/photos
 
 collections:
-
-  # ── Projects (main portfolio — Bruna uses this most) ──
-  - name: projects
-    label: Portfolio Projects
-    label_singular: Project
-    folder: src/content/projects
+  # ── Photos ──────────────────────────────────────────────
+  - name: photos
+    label: Photos
+    label_singular: Photo
+    folder: src/content/photos
     format: json
     extension: json
     create: true
-    delete: true
-    slug: "{{slug}}"
+    slug: "{{order}}"
     fields:
-      - label: Project Title
-        name: title
-        widget: string
-        hint: "e.g. Gaura Sumer Campaign"
-
-      - label: URL Slug
-        name: slug
-        widget: string
-        hint: "URL-safe version of the title — lowercase, hyphens only. e.g. gaura-sumer-campaign"
-        pattern: ['^[a-z0-9-]+$', "Lowercase letters, numbers, and hyphens only"]
-
+      - { label: Image, name: src, widget: image, media_folder: /src/assets/photos, public_folder: "../../assets/photos" }
+      - { label: Alt text, name: alt, widget: string, hint: "Describe the photo for screen readers" }
+      - label: Aspect Ratio
+        name: aspectRatio
+        widget: select
+        options:
+          - { label: "Portrait (3:4)", value: "3/4" }
+          - { label: "Square (1:1)", value: "1/1" }
+          - { label: "Landscape (4:3)", value: "4/3" }
+          - { label: "Widescreen (16:9)", value: "16/9" }
+      - { label: Order, name: order, widget: number, value_type: int, hint: "Display order (lower = first)" }
       - label: Category
         name: category
         widget: select
         options:
           - { label: "Multimedia Marketing", value: "marketing" }
-          - { label: "Personal Work",        value: "personal"  }
-
-      - label: Display Order
-        name: order
-        widget: number
-        value_type: int
-        min: 1
-        hint: "Lower number = appears first in the list"
-
-      - label: Project Description
-        name: description
-        widget: text
-        hint: "2–3 sentences about the project. Shown on the project page."
-
-      - label: Cover Image
-        name: coverImage
-        widget: image
-        hint: "Main image shown in the hero on the project page"
-        media_folder: /src/assets/uploads
-        public_folder: "../../assets/uploads"
-
-      - label: Gallery Images
-        name: images
-        widget: list
+          - { label: "Personal Work", value: "personal" }
+        default: personal
+      - label: Campaign
+        name: campaign
+        widget: relation
+        collection: campaigns
+        search_fields: [title]
+        value_field: slug
+        display_fields: [title]
         required: false
-        hint: "Additional photos shown in the gallery grid on the project page"
-        field:
-          label: Image
-          name: image
-          widget: image
-          media_folder: /src/assets/uploads
-          public_folder: "../../assets/uploads"
+        hint: "Assign this photo to a campaign / project"
+      - { label: Caption (optional), name: caption, widget: string, required: false, hint: "Short text shown when someone hovers the photo" }
 
-      - label: Vimeo ID
-        name: vimeoId
-        widget: string
-        required: false
-        hint: "Optional. The number from a Vimeo URL — e.g. for vimeo.com/76979871 enter 76979871"
+  # ── Campaigns / Projects ─────────────────────────────────
+  - name: campaigns
+    label: Campaigns
+    label_singular: Campaign
+    folder: src/content/campaigns
+    format: json
+    extension: json
+    create: true
+    identifier_field: title
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string, hint: "Project / campaign name shown on the portfolio list" }
+      - { label: Slug, name: slug, widget: string, hint: "URL-friendly identifier, e.g. gaura-sumer-campaign. Lowercase, dashes only." }
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - { label: "Multimedia Marketing", value: "marketing" }
+          - { label: "Personal Work", value: "personal" }
+      - { label: Order, name: order, widget: number, value_type: int, hint: "Order in the category list (lower = first)" }
+      - { label: Description (optional), name: description, widget: text, required: false, hint: "Short paragraph shown on the campaign page" }
 
-  # ── Site Settings ──────────────────────────────────────
-  - name: settings
-    label: Site Settings
-    files:
-      - label: Site Info
-        name: site
-        file: src/data/site.json
-        fields:
-          - { label: "Your Name / Brand",  name: name,        widget: string }
-          - { label: Tagline,              name: tagline,     widget: string }
-          - { label: Location,             name: location,    widget: string }
-          - { label: Year Started,         name: yearStarted, widget: number, value_type: int }
-          - { label: Email Address,        name: email,       widget: string }
-          - { label: Instagram Handle,     name: instagram,   widget: string, hint: "Include the @ symbol" }
-          - { label: Vimeo URL,            name: vimeo,       widget: string }
+  # ── Client logos ─────────────────────────────────────────
+  - name: logos
+    label: Client Logos
+    label_singular: Logo
+    folder: src/content/logos
+    format: json
+    extension: json
+    create: true
+    identifier_field: name
+    fields:
+      - { label: Brand name, name: name, widget: string, hint: "Used as the logo's alt text" }
+      - { label: Logo image, name: src, widget: image, media_folder: /src/assets/logos, public_folder: "../../assets/logos", hint: "SVG preferred. Transparent background." }
+      - { label: Order, name: order, widget: number, value_type: int, hint: "Order in the homepage loop (lower = first)" }
 
-  # ── Videos (showreel) ─────────────────────────────────
+  # ── Videos ───────────────────────────────────────────────
   - name: videos
     label: Videos
     label_singular: Video
@@ -114,14 +92,23 @@ collections:
     extension: json
     create: true
     fields:
-      - { label: Title,      name: title,   widget: string }
-      - label: Vimeo ID
-        name: vimeoId
-        widget: string
-        hint: "The number from the Vimeo URL — e.g. 76979871"
-      - label: Poster Image
-        name: poster
-        widget: image
-        media_folder: /src/assets/video-posters
-        public_folder: "../../assets/video-posters"
+      - { label: Title, name: title, widget: string }
+      - { label: Vimeo ID, name: vimeoId, widget: string, hint: "The number from the Vimeo URL, e.g. 76979871" }
+      - { label: Poster image, name: poster, widget: image, media_folder: /src/assets/video-posters, public_folder: "../../assets/video-posters" }
       - { label: Order, name: order, widget: number, value_type: int }
+
+  # ── Site settings ────────────────────────────────────────
+  - name: settings
+    label: Site Settings
+    files:
+      - label: Site Info
+        name: site
+        file: src/data/site.json
+        fields:
+          - { label: "Your Name / Brand", name: name, widget: string }
+          - { label: Tagline, name: tagline, widget: string }
+          - { label: Location, name: location, widget: string }
+          - { label: Year Started, name: yearStarted, widget: number, value_type: int }
+          - { label: Email Address, name: email, widget: string }
+          - { label: Instagram Handle, name: instagram, widget: string, hint: "Include the @ symbol" }
+          - { label: Vimeo URL, name: vimeo, widget: string }

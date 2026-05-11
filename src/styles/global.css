@@ -95,6 +95,7 @@
   display: block;
   overflow: hidden;
   cursor: zoom-in;
+  position: relative;
 }
 @media (min-width: 640px) {
   .photo-item { margin-bottom: 1rem; }
@@ -113,6 +114,93 @@
 @media (prefers-reduced-motion: no-preference) {
   .photo-item:hover img {
     transform: scale(1.02);
+  }
+}
+
+/* Hover caption overlay */
+.photo-item__caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 55%);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+.photo-item:hover .photo-item__caption,
+.photo-item:focus-visible .photo-item__caption {
+  opacity: 1;
+}
+.photo-item__caption-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-item__caption { transition: none; }
+}
+
+/* Logo marquee */
+.logo-marquee {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  border-top: 1px solid #E8E8E8;
+  border-bottom: 1px solid #E8E8E8;
+  overflow: hidden;
+}
+.logo-marquee__eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #6B6B6B;
+  text-align: center;
+  margin: 0 0 2rem;
+}
+.logo-marquee__viewport {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.logo-marquee__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: max-content;
+  animation: logo-marquee-scroll 32s linear infinite;
+}
+.logo-marquee:hover .logo-marquee__track {
+  animation-play-state: paused;
+}
+.logo-marquee__item img {
+  height: clamp(28px, 4vw, 44px);
+  width: auto;
+  display: block;
+  opacity: 0.55;
+  filter: grayscale(100%);
+  transition: opacity 200ms ease, filter 200ms ease;
+}
+.logo-marquee__item img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+@keyframes logo-marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee__track {
+    animation: none;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
 

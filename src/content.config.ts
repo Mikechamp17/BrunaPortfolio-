@@ -11,6 +11,7 @@ const photos = defineCollection({
       order: z.number(),
       caption: z.string().optional(),
       category: z.enum(['marketing', 'personal']).default('personal'),
+      campaign: z.string().optional(),
     }),
 });
 
@@ -25,19 +26,25 @@ const videos = defineCollection({
     }),
 });
 
-const projects = defineCollection({
-  loader: glob({ pattern: '**/*.json', base: './src/content/projects' }),
+const campaigns = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/campaigns' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    category: z.enum(['marketing', 'personal']),
+    order: z.number(),
+    description: z.string().optional(),
+  }),
+});
+
+const logos = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/logos' }),
   schema: ({ image }) =>
     z.object({
-      title: z.string(),
-      slug: z.string(),
-      category: z.enum(['marketing', 'personal']),
+      name: z.string(),
+      src: image(),
       order: z.number(),
-      description: z.string(),
-      coverImage: image(),
-      images: z.array(image()).optional(),
-      vimeoId: z.string().optional(),
     }),
 });
 
-export const collections = { photos, videos, projects };
+export const collections = { photos, videos, campaigns, logos };

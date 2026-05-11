@@ -5,6 +5,7 @@ import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import SectionMarker from '../components/SectionMarker.astro';
 import PortfolioTiles from '../components/PortfolioTiles.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
 import About from '../components/About.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
@@ -26,9 +27,10 @@ import site from '../data/site.json';
     <section id="portfolio" class="py-section" aria-labelledby="portfolio-heading">
       <h2 id="portfolio-heading" class="sr-only">Portfolio</h2>
       <SectionMarker word="PORTFOLIO" />
-
       <PortfolioTiles />
     </section>
+
+    <LogoMarquee />
 
     <About />
 

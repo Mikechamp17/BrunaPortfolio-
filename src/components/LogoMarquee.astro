@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const logos = (await getCollection('logos')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+// Duplicate the list so the CSS marquee can loop seamlessly
+const loopLogos = [...logos, ...logos];
+---
+
+{logos.length > 0 && (
+  <section class="logo-marquee" aria-label="Selected clients">
+    <p class="logo-marquee__eyebrow">Selected clients</p>
+    <div class="logo-marquee__viewport">
+      <ul class="logo-marquee__track" role="list">
+        {loopLogos.map((logo, i) => (
+          <li class="logo-marquee__item" aria-hidden={i >= logos.length ? 'true' : undefined}>
+            <Image
+              src={logo.data.src}
+              alt={logo.data.name}
+              width={240}
+              height={60}
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

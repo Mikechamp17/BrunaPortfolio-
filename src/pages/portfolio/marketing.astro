@@ -1,0 +1,140 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const campaigns = (await getCollection('campaigns'))
+  .filter((c) => c.data.category === 'marketing')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Multimedia Marketing — PHOZARO"
+  description="Brand photography, social media content, and media production campaigns by PHOZARO."
+>
+  <Nav />
+
+  <main id="main">
+    <section class="px-site category-header">
+      <a href="/#portfolio" class="category-back">← Back to Portfolio</a>
+      <h1 class="category-title">Multimedia<br />Marketing</h1>
+    </section>
+
+    <div class="px-site category-list-wrap">
+      <ol class="campaign-list" role="list">
+        {campaigns.map((c, i) => (
+          <li class="campaign-item">
+            <a href={`/portfolio/${c.data.slug}`} class="campaign-link" data-reveal>
+              <span class="campaign-num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span class="campaign-title">{c.data.title}</span>
+              <span class="campaign-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .category-header {
+    padding-top: clamp(8rem, 14vw, 12rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .category-back {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #6B6B6B;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: color 200ms ease;
+  }
+  .category-back:hover { color: #0A0A0A; }
+
+  .category-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3.5rem, 12vw, 10rem);
+    color: #0A0A0A;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .category-list-wrap {
+    padding-bottom: clamp(4rem, 10vw, 10rem);
+  }
+
+  .campaign-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid #E8E8E8;
+  }
+
+  .campaign-item {
+    border-bottom: 1px solid #E8E8E8;
+  }
+
+  .campaign-link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem) 0;
+    text-decoration: none;
+    transition: padding 300ms ease;
+  }
+  .campaign-link:hover {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .campaign-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #B0B0B0;
+    letter-spacing: 0.1em;
+    min-width: 2ch;
+  }
+
+  .campaign-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    color: #0A0A0A;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .campaign-arrow {
+    font-size: 1.25rem;
+    color: #B0B0B0;
+    transition: color 200ms ease, transform 300ms ease;
+  }
+
+  .campaign-link:hover .campaign-arrow {
+    color: #0A0A0A;
+    transform: translateX(6px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .campaign-link,
+    .campaign-arrow {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/reveal';
+</script>
