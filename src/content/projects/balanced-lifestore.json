@@ -4,7 +4,7 @@
   "category": "marketing",
   "order": 5,
   "description": "Lifestyle and product photography for Balanced Lifestore — earthy tones, natural light, authentic wellness aesthetic.",
-  "coverImage": "../../assets/photos/balanced-01.png",
+  "coverImage": "https://res.cloudinary.com/drwvi1jhx/image/upload/v1778577922/maduma-02.png",
   "images": [
     "../../assets/photos/balanced-01.png",
     "../../assets/photos/balanced-02.png",
